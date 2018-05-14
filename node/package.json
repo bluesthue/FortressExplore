@@ -9,6 +9,7 @@
   "author": "Matthew C. Roy",
   "license": "SEE LICENSE IN LICENCE.TXT",
   "dependencies": {
+    "express": "^4.16.3",
     "koa": "^2.5.1",
     "koa-mysql": "^1.0.3",
     "koa-router": "^7.4.0"

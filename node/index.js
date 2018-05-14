@@ -40,21 +40,11 @@ app.use(async (ctx, next) => {
 });*/
 
 router
-  .get('/', (ctx, next) => {
-    // ctx.router available
-  })
-  .get('/planets',(ctx, next)=>{
+  .get('/planets', async (ctx) =>{
     //GET PLANETS
-    try{
-      var rows =  db.query("select * from T_Planets");
-      ctx.body = rows;
-    }
-    catch(err){
-      ctx.status=500;
-      ctx.body={error:err};
-    }
-  })
-  .get('/planets/:id',(ctx, next)=>{
+      planets(ctx);
+  });
+  /*.get('/planets/:id', ctx =>{
     //GET PLANET BY ID
     try{
       var rows =  db.query("select * from T_Planets where id = ?",[ctx.params.id]);
@@ -65,7 +55,7 @@ router
       ctx.body={error:err};
     }
   })
-  .get('/flyto/:id',(ctx, next)=>{
+  .get('/flyto/:id', ctx =>{
     //FLY TO A PLANET TODO:update this to post
     try{
       ctx.body={flyto:ctx.params.id}
@@ -74,7 +64,19 @@ router
       ctx.status=500;
       ctx.body={error:err};
     }
-  });
+  });*/
+
+function* planets(ctx){
+  try{
+    var rows = yield db.query("select * from T_Planets");
+    console.log("rows:"+rows);
+    ctx.body=rows;
+  }
+  catch(err){
+    ctx.status=500;
+    ctx.body={error:err};
+  }
+}
 
 app.use(router.routes());//.use(router.allowedMethods())
 
